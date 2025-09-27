@@ -1,11 +1,10 @@
-package TopLayer.PhysicalLayer;
+package Layered.PhysicalLayer;
 
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoController;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServoExtension implements Servo {
+public class Servo implements com.qualcomm.robotcore.hardware.Servo {
 
     // State machine enum for servo states
     public enum ServoState {
@@ -35,7 +34,7 @@ public class ServoExtension implements Servo {
     }
 
     // Instance variables
-    private Servo servo;
+    private com.qualcomm.robotcore.hardware.Servo servo;
     private ServoState currentState;
     private ServoType servoType;
     private double targetPosition;
@@ -44,7 +43,7 @@ public class ServoExtension implements Servo {
     private Map<String, Double> servoProperties;
 
     // Constructor
-    public ServoExtension(Servo servo, ServoType type) {
+    public Servo(com.qualcomm.robotcore.hardware.Servo servo, ServoType type) {
         this.servo = servo;
         this.servoType = type;
         this.currentState = ServoState.IDLE;
@@ -233,7 +232,9 @@ public class ServoExtension implements Servo {
         setState(ServoState.MOVING);
         servo.setPosition(position);
         currentAngleDegrees = positionToDegrees(position - chamberAdjustment);
-        setState(ServoState.IDLE);
+        if (isAtTarget()) {
+            setState(ServoState.IDLE);
+        }
     }
 
     @Override

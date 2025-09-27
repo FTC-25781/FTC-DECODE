@@ -1,24 +1,18 @@
-package TopLayer.PhysicalLayer;
+package Layered.PhysicalLayer;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import android.graphics.Color;
 
-@Disabled
-@TeleOp(group="examples")
-public class ColorSensorEX extends LinearOpMode {
-
-    private ColorSensor colorSensor;
+public class ColorSensor extends LinearOpMode {
+    private com.qualcomm.robotcore.hardware.ColorSensor colorSensor;
     private NormalizedColorSensor normalizedColorSensor;
     private double redValue;
     private double greenValue;
     private double blueValue;
-    private double alphaValue; // light intensity
+    private double alphaValue;
 
     @Override
     public void runOpMode(){
@@ -35,7 +29,7 @@ public class ColorSensorEX extends LinearOpMode {
 
     }
     public void initHardware(){
-        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor1");
+        colorSensor = hardwareMap.get(com.qualcomm.robotcore.hardware.ColorSensor.class, "colorSensor1");
         normalizedColorSensor = (NormalizedColorSensor) colorSensor;
     }
     public void getColor(){

@@ -18,7 +18,7 @@ public class Camera {
 
     // Database helper class
     private static class AprilTagDBHelper extends SQLiteOpenHelper {
-        private static final String DATABASE_NAME = "Layered/apriltags.db";
+        private static final String DATABASE_NAME = "apriltags.db";
         private static final int DATABASE_VERSION = 1;
         private static final String TABLE_NAME = "detected_tags";
         private static final String COLUMN_ID = "id";

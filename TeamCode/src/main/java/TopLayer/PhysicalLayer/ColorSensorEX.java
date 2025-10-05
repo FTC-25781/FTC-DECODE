@@ -38,6 +38,9 @@ public class ColorSensorEX extends LinearOpMode {
         colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor1");
         normalizedColorSensor = (NormalizedColorSensor) colorSensor;
     }
+    public void teleOpControls(){
+
+    }
     public void getColor(){
         NormalizedRGBA colors = normalizedColorSensor.getNormalizedColors();
         redValue = colors.red;

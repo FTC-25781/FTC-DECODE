@@ -52,7 +52,7 @@ public class PIDShooter extends LinearOpMode {
     private static final double WHEEL_RADIUS = 2.0; // inches -
 
     // Robot state tracking
-    private double robotX = 72; // inches - REPLACE WITH ODOMETRY, WILL NEED TO CHANGe
+    private double robotX = 72; // inches - REPLACE WITH ODOMETRY, WILL NEED TO CHANGE
     private double robotY = 36; // inches - REPLACE WITH ODOMETRY, WILL NEED TO CHANGE
     private double previousX = 72;
     private double previousY = 36;

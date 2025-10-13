@@ -59,7 +59,7 @@ public class PIDShooter extends LinearOpMode {
     private double robotVelocityX = 0; // inches/second
     private double robotVelocityY = 0; // inches/second
     private double robotHeading = 0; // radians
-    private double shooterHeight;
+    private double shooterHeight = 18; // max height for robot
 
     // Alliance selection
     private boolean isRedAlliance = true;
@@ -283,8 +283,7 @@ public class PIDShooter extends LinearOpMode {
             }
 
             // Convert velocity to RPM
-            // v = ω * r, so ω = v / r
-            // RPM = ω * 60 / (2π)
+
             double rpm = (v0 * 60.0) / (2.0 * Math.PI * WHEEL_RADIUS);
 
             // Add compensation for energy losses
@@ -326,25 +325,6 @@ public class PIDShooter extends LinearOpMode {
             return Range.clip(angle, 25, 65);
         }
 
-        /**
-         * Calculate initial velocity using kinematic equations
-         *
-         * Kinematic Equations:
-         * Horizontal motion (constant velocity, ax = 0):
-         *   x = v₀·cos(θ)·t
-         *
-         * Vertical motion (constant acceleration, ay = -g):
-         *   y = v₀·sin(θ)·t - ½g·t²
-         *
-         * Eliminating time t and solving for v₀:
-         *   v₀² = (g·x²) / (2·cos²(θ)·[x·tan(θ) - y])
-         *
-         * Where:
-         *   x = horizontal distance
-         *   y = vertical distance (height difference)
-         *   θ = launch angle
-         *   g = gravity
-         */
         private static double calculateInitialVelocity(
                 double horizontalDist, double verticalDist, double angleRad) {
 
@@ -362,9 +342,6 @@ public class PIDShooter extends LinearOpMode {
             // Check if trajectory is possible at this angle
             if (denominator <= 0) {
                 // Use fallback: vertical kinematic equation
-                // At peak height: vy² = v₀y² - 2g(y - y₀)
-                // When vy = 0: v₀y² = 2g·h
-                // Then: v₀² = v₀y² / sin²(θ)
                 double peakHeight = Math.max(verticalDist + 12, 24);
                 velocitySquared = (2.0 * GRAVITY * peakHeight) / (sinTheta * sinTheta);
             } else {
@@ -373,7 +350,7 @@ public class PIDShooter extends LinearOpMode {
 
             // Safety check
             if (velocitySquared < 0) {
-                velocitySquared = 10000; // Minimum safe velocity (~100 in/s)
+                velocitySquared = 10000; // Minimum safe velocity (100 in/s)
             }
 
             return Math.sqrt(velocitySquared);
